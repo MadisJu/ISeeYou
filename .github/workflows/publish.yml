@@ -16,7 +16,7 @@ jobs:
       - name: Setup
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 10.0.x
 
       - name: Restore
         run: dotnet restore ISeeYou/ISeeYou.csproj
@@ -28,9 +28,6 @@ jobs:
         run: dotnet pack ISeeYou/ISeeYou.csproj --configuration Release --no-build --output ./nupkg
 
       - name: Push
-        uses: NuGet/setup-nuget@v2
-        with:
-          nuget-api-key: ${{ secrets.NUGET_PUBLISH_KEY }}
-      
-      - name: Run Push
-        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_PUBLISH_KEY }}
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
+        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
