@@ -31,4 +31,6 @@ jobs:
         uses: NuGet/setup-nuget@v2
         with:
           nuget-api-key: ${{ secrets.NUGET_PUBLISH_KEY }}
-        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json
+      
+      - name: Run Push
+        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_PUBLISH_KEY }}
