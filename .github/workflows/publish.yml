@@ -1,0 +1,34 @@
+name: Nuget publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore ISeeYou/ISeeYou.csproj
+
+      - name: Build
+        run: dotnet build ISeeYou/ISeeYou.csproj --configuration Release --no-restore
+
+      - name: Pack
+        run: dotnet pack ISeeYou/ISeeYou.csproj --configuration Release --no-build --output ./nupkg
+
+      - name: Push
+        uses: NuGet/setup-nuget@v2
+        with:
+          nuget-api-key: ${{ secrets.NUGET_PUBLISH_KEY }}
+          run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json
