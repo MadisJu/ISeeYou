@@ -12,6 +12,9 @@
     <Company>MadislolInc</Company>
     <Description>Super minimalistic auditing library to use across multiple microservices</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/MadisJu/ISeeYou</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MadisJu/ISeeYou</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
